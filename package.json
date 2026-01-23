@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "fresh": "dotenvx run -- mikro-orm-esm schema:fresh --run",
-    "seed": "dotenvx run -- mikro-orm-esm seeder:run --class=AdminSeeders && dotenvx run -- mikro-orm-esm seeder:run --class=MSASeeders"
+    "fresh": "mikro-orm-esm schema:update --run",
+    "seed": "mikro-orm-esm seeder:run --class=MySeeder"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@types/node": "^25.0.10",
+    "@mikro-orm/cli": "^6.4.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }

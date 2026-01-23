@@ -1,12 +1,21 @@
 import {defineConfig} from "@mikro-orm/core";
+import { Test } from "./src/entities";
+import {SeedManager} from '@mikro-orm/seeder';
+import {Options, PostgreSqlDriver} from '@mikro-orm/postgresql';
+
+const options = {
+} satisfies Options;
 
 export default defineConfig({
-    entities: ['dist/entities/**/*.js'], // path to your JS entities (compiled)
-    entitiesTs: ['src/entities/**/*.ts'], // path to your TS entities (source)
-    dbName: 'your_database_name',
-    user: 'your_user',
-    password: 'your_password',
+    entities: [
+        Test
+    ],
+    driver: PostgreSqlDriver,
+    dbName: 'postgres',
+    user: 'postgres',
+    password: 'password',
     host: 'localhost', // or your postgres host
-    port: 5432,
-    type: 'postgresql',
+    port: 5433,
+    extensions: [SeedManager],
+    ...options,
 });
