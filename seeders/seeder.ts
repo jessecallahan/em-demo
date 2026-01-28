@@ -1,6 +1,6 @@
 import {Seeder} from '@mikro-orm/seeder';
 import {EntityManager} from '@mikro-orm/postgresql';
-import {Player, Team} from "../src/entities";
+import {Game, Player, Team} from "../src/entities";
 
 export class MySeeder extends Seeder {
     async run(em: EntityManager): Promise<void> {
@@ -30,11 +30,31 @@ export class MySeeder extends Seeder {
         // * How to use find correctly when adding to relational table?
         //
         const mariners = new Team('Seattle Mariners');
+        const rainiers = new Team('Tacoma Rainiers');
+
         const jesse = new Player('Jesse');
         jesse.team = mariners;
 
         mariners.players.add(new Player('Ichiro'));
-        em.persist([mariners, jesse]);
+        em.persist([mariners, rainiers, jesse]);
+
+        mariners.home_games.add(new Game(mariners, rainiers));
+
+
+        const foundTeams = await em.find(Team, {}, {populate: ['home_games', 'away_games']});
+        console.log(foundTeams);
+        // const game = {home: mariners, away: rainiers} as Game;
+        // mariners.games.add(game);
+        // * How to use find correctly when adding to relational table?
+        // const griffey = new Player('Ken Griffey Jr');
+        // //griffey.team = mariners;
+        // const foundTeam = await em.findOneOrFail(Team, {name: mariners.name});
+        // if (foundTeam) {
+        //     griffey.team = foundTeam;
+        //     //foundTeam.players.add(griffey);
+        // }
+
+
 
 
 
