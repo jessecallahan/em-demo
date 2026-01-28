@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "fresh": "mikro-orm-esm schema:update --run",
+    "fresh": "mikro-orm-esm schema:fresh --run",
     "seed": "mikro-orm-esm seeder:run --class=MySeeder"
   },
   "keywords": [],

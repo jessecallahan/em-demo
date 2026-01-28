@@ -6,10 +6,16 @@ This is a demo of how to use Entity Manager (em) within a seeder and common pitf
 ## Entity Constructor
 
 * What is the difference between instantiation and create()?
+
+create() is persisted by default.
+
 * What is the difference between instantiation and POJO?
 
-## Relationships
+The entity constructor enforces required parameters. They both need to be persisted manually.
 
+## Relationships
+An entity is managed if it’s fetched from the database (via em.find(), em.findOne() or via other managed entity)
+or registered as new through em.persist()
 * How to add data to relational tables (both one-to-many and many-to-one)?
 * What is a reference?
 * What is initialization? 
