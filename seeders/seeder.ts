@@ -32,17 +32,23 @@ export class MySeeder extends Seeder {
         const mariners = new Team('Seattle Mariners');
         const rainiers = new Team('Tacoma Rainiers');
 
-        const jesse = new Player('Jesse');
-        jesse.team = mariners;
-
-        mariners.players.add(new Player('Ichiro'));
-        em.persist([mariners, rainiers, jesse]);
-
-        mariners.home_games.add(new Game(mariners, rainiers));
+        // const jesse = new Player('Jesse');
+        // jesse.team = mariners;
+        //
+        // mariners.players.add(new Player('Ichiro'));
 
 
-        const foundTeams = await em.find(Team, {}, {populate: ['home_games', 'away_games']});
-        console.log(foundTeams);
+        const game = new Game(mariners, rainiers);
+        em.persist([mariners, rainiers, game]);
+
+        const teams = await em.find(Team, {});
+        const teamsWithGames = teams
+            .map(team =>
+                ({...team,
+                    allGames: team.allGames.map(g => ({home: g.home.name, away: g.away.name}))
+                })
+            );
+        console.log(teamsWithGames.map(t => ({team: t.name, games: t.allGames})));
         // const game = {home: mariners, away: rainiers} as Game;
         // mariners.games.add(game);
         // * How to use find correctly when adding to relational table?

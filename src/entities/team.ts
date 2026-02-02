@@ -1,7 +1,7 @@
 import {Collection, Entity, ManyToMany, OneToMany, PrimaryKey, Property} from '@mikro-orm/postgresql';
 import {Player} from "./player";
 import {Game} from './game';
-import {HomeGames} from './home-games';
+import {Games} from './games';
 
 @Entity()
 export class Team {
@@ -18,18 +18,18 @@ export class Team {
     )
     players = new Collection<Player>(this);
 
-    @ManyToMany({
-        entity: () => Game,
-        pivotEntity: () => HomeGames,
-        owner: true,
-    })
-    home_games = new Collection<Game>(this);
+    // Collection of games played at home
+    @OneToMany(() => Game, game => game.home)
+    homeGames = new Collection<Game>(this);
 
-    @ManyToMany(
-        () => Game,
-        (game) => game.away
-    )
-    away_games = new Collection<Game>(this);
+    // Collection of games played away
+    @OneToMany(() => Game, game => game.away)
+    awayGames = new Collection<Game>(this);
+
+    @Property({ persist: false })
+    get allGames(): Game[] {
+        return [...this.homeGames.getItems(), ...this.awayGames.getItems()];
+    }
 
     constructor(name: string) {
         this.name = name;

@@ -16,7 +16,7 @@ export default defineConfig({
     user: 'postgres',
     password: 'password',
     host: 'localhost', // or your postgres host
-    port: 5433, // 5433 for office cpu
+    port: 5432, // 5433 for office cpu
     extensions: [SeedManager],
     ...options,
 });
