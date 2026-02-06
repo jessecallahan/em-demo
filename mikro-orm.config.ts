@@ -1,7 +1,7 @@
 import {defineConfig} from "@mikro-orm/core";
 import {SeedManager} from '@mikro-orm/seeder';
 import {Options, PostgreSqlDriver} from '@mikro-orm/postgresql';
-import {Player, Team} from "./src/entities";
+import {Game, Player, Team} from "./src/entities";
 
 const options = {
 } satisfies Options;
@@ -10,6 +10,7 @@ export default defineConfig({
     entities: [
         Team,
         Player,
+        Game
     ],
     driver: PostgreSqlDriver,
     dbName: 'postgres',

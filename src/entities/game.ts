@@ -1,6 +1,6 @@
-import {Collection, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryKey, Property} from '@mikro-orm/postgresql';
-import {Player} from "./player";
+import {Collection, Entity, ManyToMany, ManyToOne, PrimaryKey} from '@mikro-orm/postgresql';
 import {Team} from './team';
+import {Pitch} from "./pitch";
 
 @Entity()
 export class Game {
@@ -13,6 +13,9 @@ export class Game {
 
     @ManyToOne(() => Team)
     away: Team;
+
+    @ManyToMany(() => Pitch)
+    pitches = new Collection<Pitch>(this);
 
     constructor(home: Team, away: Team) {
         this.home = home;

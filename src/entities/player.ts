@@ -13,8 +13,9 @@ export class Player {
     @ManyToOne(() => Team)
     team?: Team;
 
-    constructor(name: string) {
+    constructor(name: string, team?: Team) {
         this.name = name;
+        this.team = team;
     }
 
 }

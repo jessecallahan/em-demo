@@ -1,7 +1,6 @@
-import {Collection, Entity, ManyToMany, OneToMany, PrimaryKey, Property} from '@mikro-orm/postgresql';
+import {Collection, Entity, OneToMany, PrimaryKey, Property} from '@mikro-orm/postgresql';
 import {Player} from "./player";
 import {Game} from './game';
-import {Games} from './games';
 
 @Entity()
 export class Team {
