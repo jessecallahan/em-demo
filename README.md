@@ -7,13 +7,13 @@ This is a demo of how to use Entity Manager (em) within a seeder and common pitf
 
 * What is the difference between instantiation and create()?
 
-create() is persisted by default.
+Create() is persisted by default.
 
 * What is the difference between instantiation and POJO?
 
 The entity constructor enforces required parameters. Instantiation needs to be persisted manually.
 
-POJO uses create() and is then persisted automatically or uses other em functions (like assign()).
+POJO uses create() and is then persisted automatically.
 
 ## Relationships
 An entity is managed if it’s fetched from the database (via em.find(), em.findOne() or via other managed entity)
@@ -28,35 +28,43 @@ Many-to-many set through add() or through pivot table constructor.
 * What is a reference?
   https://mikro-orm.io/docs/entity-manager#entity-references
 
-A way to reference entities without querying the db, also used for serialization
+A way to reference entities without querying the db, also used for serialization.
 
 * What is initialization? 
 
-Reference entities are initialized until using wrap(entity).isInitialized() and data is populated
+Reference entities are initialized until using wrap(entity).isInitialized() and data is populated.
 
 * How to use find correctly when adding to relational table?
 
 An entity is managed if it’s fetched from the database (via em.find(), em.findOne() or via other managed entity) so any objects
-you attach will automatically be persisted
+you attach will automatically be persisted.
 
 ## Collections
 
 * How to use add() correctly?
+
+Add() either a single entity or an array of entities. When used in a seeder context with unique fields, collections either need to
+be deleted, updated, or set() because add() will not allow duplicates in this case.
+
 * What is the best way to add a collection?
+
+Add() or POJO.
 
 ## Common Pitfalls/Answers to "in the wild" problems
 
 * Why are MSAs adding duplicate data to manual pivot tables?
 
+---
+
 * Why is upsert not working with MSAs?
+
 Upserts do not handle relational entities: https://github.com/mikro-orm/mikro-orm/discussions/4708
 
 * What is the difference between adding, updating, and upserting?
 
 Adding a record is an insert statement, update as an update statement, and update is an insert statement with on conflict 
 
-on conflict statement example usage:
-
+ON CONFLICT statement example usage:
 INSERT INTO products (id, name, price)
 VALUES (101, 'Laptop', 999.99)
 ON CONFLICT (id)

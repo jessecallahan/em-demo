@@ -22,13 +22,13 @@ export class Team {
     homeGames = new Collection<Game>(this);
 
     // Collection of games played away
-    @OneToMany(() => Game, game => game.away)
-    awayGames = new Collection<Game>(this);
-
-    @Property({ persist: false })
-    get allGames(): Game[] {
-        return [...this.homeGames.getItems(), ...this.awayGames.getItems()];
-    }
+    // @OneToMany(() => Game, game => game.away)
+    // awayGames = new Collection<Game>(this);
+    //
+    // @Property({ persist: false })
+    // get allGames(): Game[] {
+    //     return [...this.homeGames.getItems(), ...this.awayGames.getItems()];
+    // }
 
     constructor(name: string) {
         this.name = name;
